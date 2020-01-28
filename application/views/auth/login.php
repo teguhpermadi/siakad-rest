@@ -18,8 +18,14 @@
 									<div class="text-center">
 										<h1 class="h4 text-gray-900 mb-4">Selamat Datang</h1>
 									</div>
-									<!-- <div id="infoMessage"><?php echo $message;?></div> -->
-									<div class='flash-data' data-flashdata='<?= $message; ?>'></div>
+									
+									<!-- flash data -->
+									<?php if($message) { ?>
+									<div class="alert alert-danger alert-dismissible fade show" role="alert">
+										<?php echo $message;?>
+									</div>
+									<?php } ?>	
+
 									<?php echo form_open("auth/login");?>
 									<div class="form-group">
 										<?php echo form_input($identity);?>

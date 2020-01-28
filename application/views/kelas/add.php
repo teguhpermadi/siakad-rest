@@ -6,56 +6,55 @@
 		<div class="col-12">
 			<div class="card shadow mb-4">
 				<div class="card-header py-3">
-					<h3 class="m-0 font-weight-bold text-primary">Edit Mapel</h3>
+					<h3 class="m-0 font-weight-bold text-primary">Tambah Guru</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('mapel/edit/'.$mapel['id'],array("class"=>"form-horizontal")); ?>
+					<?php echo form_open('kelas/add',array("class"=>"form-horizontal")); ?>
 
 					<div class="form-group">
-						<label for="kelompok" class="col-md-4 control-label"><span
-								class="text-danger">*</span>Kelompok</label>
+						<label for="tingkat" class="col-md-4 control-label"><span
+								class="text-danger">*</span>Tingkat</label>
 						<div class="col-md-8">
-							<select name="kelompok" class="form-control">
+							<select name="tingkat" class="form-control">
 								<option value="">select</option>
 								<?php 
-            $kelompok_values = array(
-                'A'=>'Kelompok A',
-                'B'=>'Kelompok B',
-                'C'=>'Kelompok C',
+            $tingkat_values = array(
+                '10'=>'10',
+                '11'=>'11',
+                '12'=>'12',
             );
 
-            foreach($kelompok_values as $value => $display_text)
+            foreach($tingkat_values as $value => $display_text)
             {
-                $selected = ($value == $mapel['kelompok']) ? ' selected="selected"' : "";
+                $selected = ($value == $this->input->post('tingkat')) ? ' selected="selected"' : "";
 
                 echo '<option value="'.$value.'" '.$selected.'>'.$display_text.'</option>';
             } 
             ?>
 							</select>
-							<span class="text-danger"><?php echo form_error('kelompok');?></span>
+							<span class="text-danger"><?php echo form_error('tingkat');?></span>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="nama" class="col-md-4 control-label"><span class="text-danger">*</span>Nama</label>
 						<div class="col-md-8">
-							<input type="text" name="nama"
-								value="<?php echo ($this->input->post('nama') ? $this->input->post('nama') : $mapel['nama']); ?>"
+							<input type="text" name="nama" value="<?php echo $this->input->post('nama'); ?>"
 								class="form-control" id="nama" />
 							<span class="text-danger"><?php echo form_error('nama');?></span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="kode" class="col-md-4 control-label">kode</label>
+						<label for="kode_kelas" class="col-md-4 control-label">Kode Kelas</label>
 						<div class="col-md-8">
-							<input type="text" name="kode"
-								value="<?php echo ($this->input->post('kode') ? $this->input->post('kode') : $mapel['kode']); ?>"
-								class="form-control" id="kode" />
+							<input type="text" name="kode_kelas" value="<?php echo $this->input->post('kode_kelas'); ?>"
+								class="form-control" id="kode_kelas" />
 						</div>
 					</div>
+
 					<div class="form-group">
 						<div class="col-sm-offset-4 col-sm-8">
-							<button type="submit" class="btn btn-primary">Save</button>
-							<a href="<?= base_url('mapel'); ?>" class='btn btn-secondary'>Batal</a>
+							<button type="submit" class="btn btn-primary">Simpan</button>
+							<a class="btn btn-secondary" href='<?= base_url('kelas'); ?>'>Batal</a>
 						</div>
 					</div>
 

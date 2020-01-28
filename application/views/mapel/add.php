@@ -44,10 +44,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="deskripsi" class="col-md-4 control-label">Deskripsi</label>
+						<label for="kode" class="col-md-4 control-label">kode</label>
 						<div class="col-md-8">
-							<input type="text" name="deskripsi" value="<?php echo $this->input->post('deskripsi'); ?>"
-								class="form-control" id="deskripsi" />
+							<input type="text" name="kode" value="<?php echo $this->input->post('kode'); ?>"
+								class="form-control" id="kode" />
 						</div>
 					</div>
 

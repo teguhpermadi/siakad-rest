@@ -43,10 +43,12 @@ class Mapel extends CI_Controller{
             $params = array(
 				'kelompok' => $this->input->post('kelompok'),
 				'nama' => $this->input->post('nama'),
-				'deskripsi' => $this->input->post('deskripsi'),
+				'kode' => $this->input->post('kode'),
             );
             
             $mapel_id = $this->Mapel_model->add_mapel($params);
+            $this->session->set_flashdata('berhasil', 'Anda berhasil menambahkan data mata pelajaran <strong>'.$params['nama'].'</strong>');
+
             redirect('mapel/index');
         }
         else
@@ -80,10 +82,11 @@ class Mapel extends CI_Controller{
                 $params = array(
 					'kelompok' => $this->input->post('kelompok'),
 					'nama' => $this->input->post('nama'),
-					'deskripsi' => $this->input->post('deskripsi'),
+					'kode' => $this->input->post('kode'),
                 );
 
-                $this->Mapel_model->update_mapel($id,$params);            
+                $this->Mapel_model->update_mapel($id,$params);  
+                $this->session->set_flashdata('berhasil', 'Anda berhasil mengubah data mata pelajaran <strong>'.$params['nama_lengkap'].'</strong>');
                 redirect('mapel/index');
             }
             else
@@ -109,6 +112,7 @@ class Mapel extends CI_Controller{
         // check if the mapel exists before trying to delete it
         if(isset($mapel['id']))
         {
+            $this->session->set_flashdata('hapus', 'Anda berhasil menghapus data mata pelajaran <strong>'.$guru['nama_lengkap'].'</strong>');
             $this->Mapel_model->delete_mapel($id);
             redirect('mapel/index');
         }
@@ -154,7 +158,7 @@ class Mapel extends CI_Controller{
                     array_push($dataAwal, array(
                         'kelompok' => $s['A'],
                         'nama' => $s['B'],
-                        'deskripsi' => $s['C']
+                        'kode' => $s['C']
                     ));
                 }
                 // $dataAwal membaca semua data yang ada di excel termasuk nama kolom

@@ -30,6 +30,36 @@
 		</div>
 	</div>
 
+	<!-- flash data -->
+	<?php if($this->session->flashdata('berhasil')) { ?>
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<?= $this->session->flashdata('berhasil'); ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<?php } ?>
+
+	<!-- flash data -->
+	<?php if($this->session->flashdata('hapus')) { ?>
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<?= $this->session->flashdata('hapus'); ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<?php } ?>
+
+	<!-- flash data -->
+	<?php if($this->session->flashdata('berhasil_upload')) { ?>
+	<div class="alert alert-primary alert-dismissible fade show" role="alert">
+		<?= $this->session->flashdata('berhasil_upload'); ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<?php } ?>
+
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
@@ -41,7 +71,7 @@
 					<tr>
 						<th>Kelompok</th>
 						<th>Nama</th>
-						<th style="width:50%">Deskripsi</th>
+						<th style="width:50%">kode</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -50,7 +80,7 @@
 				<tr>
 					<td><?php echo $m['kelompok']; ?></td>
 					<td><?php echo $m['nama']; ?></td>
-					<td><?php echo $m['deskripsi']; ?></td>
+					<td><?php echo $m['kode']; ?></td>
 					<td>
 						<a href="<?= base_url('mapel/edit/'.$m['id']); ?>" class="btn btn-info btn-icon-split btn-sm">
 							<span class="icon text-white-50">
@@ -73,7 +103,7 @@
 					<tr>
 						<th>Kelompok</th>
 						<th>Nama</th>
-						<th>Deskripsi</th>
+						<th>kode</th>
 						<th>Actions</th>
 					</tr>
 				</tfoot>

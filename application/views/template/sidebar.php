@@ -51,9 +51,11 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="<?= base_url('tahun_pelajaran'); ?>">Tahun Pelajaran</a>
 						<a class="collapse-item" href="<?= base_url('siswa'); ?>">Siswa</a>
+						<a class="collapse-item" href="<?= base_url('kelas'); ?>">Kelas</a>
+						<a class="collapse-item" href="<?= base_url('rombel'); ?>">Rombel</a>
 						<a class="collapse-item" href="<?= base_url('guru'); ?>">Guru</a>
-						<a class="collapse-item" href="#">Kelas dan Rombel</a>
 						<a class="collapse-item" href="<?= base_url('mapel'); ?>">Mata Pelajaran</a>
+						<a class="collapse-item" href="<?= base_url('guru_mapel'); ?>">Pengajar</a>
 					</div>
 				</div>
 			</li>
