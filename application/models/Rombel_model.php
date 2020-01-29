@@ -33,8 +33,10 @@ class Rombel_model extends CI_Model
      */
     function add_rombel($params)
     {
-        $this->db->insert('rombel',$params);
-        return $this->db->insert_id();
+        // $this->db->insert('rombel',$params);
+        // return $this->db->insert_id();
+        return $this->db->insert_batch('rombel', $params);
+
     }
     
     /*
@@ -59,8 +61,9 @@ class Rombel_model extends CI_Model
      */
     function get_all_siswa()
     {
-        $this->db->order_by('id', 'desc');
-        return $this->db->get('siswa')->result_array();
+        // $this->db->order_by('id', 'desc');
+        // return $this->db->get('siswa')->result_array();
+        return $this->db->query("SELECT * FROM siswa WHERE NOT EXISTS (SELECT * FROM rombel WHERE siswa.id = rombel.id_siswa)")->result_array();
     }
 
     /*

@@ -30,8 +30,7 @@ class Rombel extends CI_Controller{
      */
     function add()
     {   
-        // $data['siswa'] = $this->Rombel_model->get_all_siswa();
-        $data['siswa'] = $this->db->query("SELECT * FROM rombel WHERE id_siswa NOT IN (SELECT * FROM siswa WHERE id_siswa = id)");
+        $data['siswa'] = $this->Rombel_model->get_all_siswa();
         $data['kelas'] = $this->Rombel_model->get_all_kelas();
 
         $this->load->library('form_validation');
@@ -55,10 +54,10 @@ class Rombel extends CI_Controller{
                 ]);
             }
 
-            print_r($params);
+            // print_r($params);
             
-            // $rombel_id = $this->Rombel_model->add_rombel($params);
-            // $this->session->set_flashdata('berhasil', 'Anda berhasil menambahkan data id kelas <strong>'.$params['id_kelas'].'</strong>');
+            $this->Rombel_model->add_rombel($params);
+            $this->session->set_flashdata('berhasil', 'Anda berhasil menambahkan data id kelas <strong>'.$params['id_kelas'].'</strong>');
             redirect('rombel/index');
         }
         else

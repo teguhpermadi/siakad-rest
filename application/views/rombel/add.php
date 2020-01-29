@@ -11,9 +11,9 @@
 					<h3 class="m-0 font-weight-bold text-primary">Tambah Rombel</h3>
 				</div>
 				<div class="card-body">
-					<?php echo form_open('rombel/tes',array("class"=>"form-horizontal")); ?>
+					<?php echo form_open('rombel/add',array("class"=>"form-horizontal")); ?>
 					<div class="form-group">
-						<select name="id_tahun" class="form-control">
+						<select name="id_tahun" id='id_tahun' class="form-control">
 							<option value="">select tahun_pelajaran</option>
 							<?php 
 							foreach($all_tahun_pelajaran as $tahun_pelajaran)
@@ -26,14 +26,14 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<select class="custom-select" name='id_kelas'>
+						<select class="custom-select" name='id_kelas' id='id_kelas'>
 							<?php foreach($kelas as $k) {?>
 							<option value="<?= $k['id'] ?>"><?= $k['nama'] ?></option>
 							<?php }?>
 						</select>
 					</div>
 					<div class="form-group">
-						<select class='searchable' multiple='multiple' name='id_siswa[]'>
+						<select class='searchable' multiple='multiple' name='id_siswa[]' id='id_siswa'>
 							<?php foreach($siswa as $m){ ?>
 							<option value='<?= $m['id']; ?>'><?= $m['nama_lengkap']; ?></option>
 							<?php } ?>
