@@ -53,4 +53,22 @@ class Rombel_model extends CI_Model
     {
         return $this->db->delete('rombel',array('id'=>$id));
     }
+
+    /*
+     * Get all siswa
+     */
+    function get_all_siswa()
+    {
+        $this->db->order_by('id', 'desc');
+        return $this->db->get('siswa')->result_array();
+    }
+
+    /*
+     * Get all kelas
+     */
+    function get_all_kelas()
+    {
+        $this->db->order_by('id', 'desc');
+        return $this->db->get('kelas')->result_array();
+    }
 }

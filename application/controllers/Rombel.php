@@ -30,6 +30,10 @@ class Rombel extends CI_Controller{
      */
     function add()
     {   
+        // $data['siswa'] = $this->Rombel_model->get_all_siswa();
+        $data['siswa'] = $this->db->query("SELECT * FROM rombel WHERE id_siswa NOT IN (SELECT * FROM siswa WHERE id_siswa = id)");
+        $data['kelas'] = $this->Rombel_model->get_all_kelas();
+
         $this->load->library('form_validation');
 
 		$this->form_validation->set_rules('id_tahun','Id Tahun','required');
@@ -38,14 +42,23 @@ class Rombel extends CI_Controller{
 		
 		if($this->form_validation->run())     
         {   
-            $params = array(
-				'id_tahun' => $this->input->post('id_tahun'),
-				'id_kelas' => $this->input->post('id_kelas'),
-				'id_siswa' => $this->input->post('id_siswa'),
-            );
+            $params = array();
+            $id_tahun = $this->input->post('id_tahun');
+            $id_kelas = $this->input->post('id_kelas');
+            $id_siswa = $this->input->post('id_siswa[]');
+
+            foreach($id_siswa as $siswa){
+                array_push($params, [
+                    'id_tahun' => $id_tahun,
+                    'id_kelas' => $id_kelas,
+                    'id_siswa' => $siswa
+                ]);
+            }
+
+            print_r($params);
             
-            $rombel_id = $this->Rombel_model->add_rombel($params);
-            $this->session->set_flashdata('berhasil', 'Anda berhasil menambahkan data id kelas <strong>'.$params['id_kelas'].'</strong>');
+            // $rombel_id = $this->Rombel_model->add_rombel($params);
+            // $this->session->set_flashdata('berhasil', 'Anda berhasil menambahkan data id kelas <strong>'.$params['id_kelas'].'</strong>');
             redirect('rombel/index');
         }
         else
@@ -127,6 +140,24 @@ class Rombel extends CI_Controller{
         }
         else
             show_error('The rombel you are trying to delete does not exist.');
+    }
+
+    function tes()
+    {
+        $params = array();
+            $id_tahun = $this->input->post('id_tahun');
+            $id_kelas = $this->input->post('id_kelas');
+            $id_siswa = $this->input->post('id_siswa[]');
+
+            foreach($id_siswa as $siswa){
+                array_push($params, [
+                    'id_tahun' => $id_tahun,
+                    'id_kelas' => $id_kelas,
+                    'id_siswa' => $siswa
+                ]);
+            }
+
+            $this->db->insert_batch('rombel', $params);
     }
     
 }

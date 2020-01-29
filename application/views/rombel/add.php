@@ -11,14 +11,39 @@
 					<h3 class="m-0 font-weight-bold text-primary">Tambah Rombel</h3>
 				</div>
 				<div class="card-body">
-					<select id='callbacks' multiple='multiple'>
-						<option value='elem_1'>elem 1</option>
-						<option value='elem_2'>elem 2</option>
-						<option value='elem_3'>elem 3</option>
-						<option value='elem_4'>elem 4</option>
-						...
-						<option value='elem_100'>elem 100</option>
-					</select>
+					<?php echo form_open('rombel/tes',array("class"=>"form-horizontal")); ?>
+					<div class="form-group">
+						<select name="id_tahun" class="form-control">
+							<option value="">select tahun_pelajaran</option>
+							<?php 
+							foreach($all_tahun_pelajaran as $tahun_pelajaran)
+							{
+								$selected = ($tahun_pelajaran['id'] == $this->input->post('id_tahun')) ? ' selected="selected"' : "";
+
+								echo '<option value="'.$tahun_pelajaran['id'].'" '.$selected.'>'.$tahun_pelajaran['tahun'].'</option>';
+							} 
+							?>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="custom-select" name='id_kelas'>
+							<?php foreach($kelas as $k) {?>
+							<option value="<?= $k['id'] ?>"><?= $k['nama'] ?></option>
+							<?php }?>
+						</select>
+					</div>
+					<div class="form-group">
+						<select class='searchable' multiple='multiple' name='id_siswa[]'>
+							<?php foreach($siswa as $m){ ?>
+							<option value='<?= $m['id']; ?>'><?= $m['nama_lengkap']; ?></option>
+							<?php } ?>
+						</select>
+					</div>
+					<div class="form-group">
+						<button type="submit" class='btn btn-primary'>Simpan</button>
+					</div>
+
+					<?php echo form_close(); ?>
 				</div>
 			</div>
 		</div>
@@ -54,18 +79,45 @@
 </a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="<?= base_url('assets/js/jquery.multi-select.js'); ?>"></script>
+<script src="<?= base_url('assets/js/jquery.quicksearch.js'); ?>"></script>
 
 
 <script type="text/javascript">
-  // run callbacks
-      $('#callbacks').multiSelect({
-      afterSelect: function(values){
-		// alert("Select value: "+values);
-		
-      },
-      afterDeselect: function(values){
-		// alert("Deselect value: "+values);
-		
-      }
-    });
-  </script>
+	$('.searchable').multiSelect({
+		selectableHeader: "<input type='text' class='form-control mb-1' autocomplete='off' placeholder='try \"12\"'>",
+		selectionHeader: "<input type='text' class='form-control mb-1' autocomplete='off' placeholder='try \"4\"'>",
+		afterInit: function (ms) {
+			var that = this,
+				$selectableSearch = that.$selectableUl.prev(),
+				$selectionSearch = that.$selectionUl.prev(),
+				selectableSearchString = '#' + that.$container.attr('id') +
+				' .ms-elem-selectable:not(.ms-selected)',
+				selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+			that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+				.on('keydown', function (e) {
+					if (e.which === 40) {
+						that.$selectableUl.focus();
+						return false;
+					}
+				});
+
+			that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+				.on('keydown', function (e) {
+					if (e.which == 40) {
+						that.$selectionUl.focus();
+						return false;
+					}
+				});
+		},
+		afterSelect: function () {
+			this.qs1.cache();
+			this.qs2.cache();
+		},
+		afterDeselect: function () {
+			this.qs1.cache();
+			this.qs2.cache();
+		}
+	});
+
+</script>
