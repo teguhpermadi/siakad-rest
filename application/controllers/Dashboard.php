@@ -26,12 +26,28 @@ class Dashboard extends CI_Controller {
         $this->data['jumlah_guru'] = $this->Guru_model->count_row();
         $this->data['jumlah_siswa'] = $this->Siswa_model->count_row();
 
+        $user = $this->ion_auth->user()->row();
+        
+        $userData = array(
+            'id' => $user->id,
+            'ip_address' => $user->ip_address,
+            'username' => $user->username,
+            'password' => $user->password,
+            'email' => $user->email,
+            'first_name' => $user->first_name,
+            'last_name' => $user->last_name,
+            'company' => $user->company,
+            'phone' => $user->phone,
+            'user_id' => $user->user_id
+        );
+        print_r($userData);
+
         $this->session->set_flashdata('message', 'anda berhasil menginput data');
         
-        $this->load->view('template/header');
-        $this->load->view('template/sidebar');
+        $this->load->view('template/header', $this->data);
+        $this->load->view('template/sidebar', $this->data);
         $this->load->view('administrator/dashboard', $this->data);
-        $this->load->view('template/footer');
+        $this->load->view('template/footer', $this->data);
         
     }
 }
